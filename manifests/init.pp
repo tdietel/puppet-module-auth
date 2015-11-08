@@ -1,14 +1,24 @@
 # == Class: auth
 #
-# Full description of class auth here.
+# Configure authentication
 #
 # === Parameters
 #
-# Document parameters here.
+# [*ldap_uri*] 
+#   URI of LDAP server to contact for for authentication. If the value
+#   is an empty string, LDAP authentication is disabled.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*ldap_authdn*] 
+#   Searchbase for querying LDAP server.
+# 
+#   Distinguished name (DN) used to bind to LDAP authentication server.
+#  
+# [*ldap_authpw*] 
+#   Authentication token (password) to be used for bind to LDAP authentication
+#   server.
+#
+# [*mkhomedir*]
+#   Install and enable the PAM module 'mkhomedir' (boolean).
 #
 # === Variables
 #
@@ -24,18 +34,49 @@
 # === Examples
 #
 #  class { 'auth':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#    mkhomedir => true
 #  }
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Tom Dietel <tom@dietel.net>
 #
 # === Copyright
 #
-# Copyright 2015 Your name here, unless otherwise noted.
+# Copyright 2015 Tom Dietel
 #
-class auth {
+class auth (
+    $ldap_uri = '',
+    $ldap_searchbase = '',
+    $ldap_authdn = '',
+    $ldap_authpw = '',
+    $mkhomedir = false )
+{
+    
+    class { 'auth::sssd':
+        ldap_uri          => $ldap_uri,     
+        ldap_searchbase   => $ldap_searchbase,
+        ldap_authdn       => $ldap_authdn, 
+        ldap_authpw       => $ldap_authpw, 
+        
+        #krb5_realm        => $krb5_realm,   
+        #krb5_kdcs         => $krb5_kdcs
+    }
 
-
+    #class { 'auth::krb5':
+        #    realm         => $krb5_realm,   
+        #    kdcs          => $krb5_kdcs,
+        #    admin_server  => $krb5_admin_server,
+        #}
+    
+    
+    class { 'auth::mkhomedir': enable => $mkhomedir }
+    
 }
+
+
+# Local Variables:
+#   mode: puppet
+#     puppet-indent-level: 4
+#     indent-tabs-mode: nil
+# End:
