@@ -1,0 +1,14 @@
+{
+  "name": "tdietel-auth",
+  "version": "0.1.0",
+  "author": "tdietel",
+  "summary": "Manage authentication using PAM and SSSD",
+  "license": "Apache 2.0",
+  "source": "https://github.com/tdietel/puppet-module-auth.git",
+  "project_page": "https://github.com/tdietel/puppet-module-auth",
+  "issues_url": "https://github.com/tdietel/puppet-module-auth/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
