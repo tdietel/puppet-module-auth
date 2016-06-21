@@ -16,8 +16,8 @@ id_provider     = ldap
 chpass_provider = ldap
 auth_provider   = ldap
 
-ldap_uri               = <%= ldap_uri %>
-ldap_user_search_base  = <%= ldap_searchbase %>
-ldap_default_bind_dn   = <%= ldap_authdn %>
-ldap_default_authtok   = <%= ldap_authpw %>
+ldap_uri               = <%= @ldap_uri %>
+ldap_user_search_base  = <%= @ldap_searchbase %>
+ldap_default_bind_dn   = <%= @ldap_authdn %>
+ldap_default_authtok   = <%= @ldap_authpw %>
 
